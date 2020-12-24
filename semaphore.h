@@ -1,5 +1,3 @@
-// struct spinlock;
-
 // Semaphore definition
 struct semaphore {
     int value; // value of semaphore
