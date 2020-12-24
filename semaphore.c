@@ -18,6 +18,7 @@ init_semaphore(int i, int v, int m)
 {
     initlock(&(semaphores[i].lk), "semaphore lock");
     semaphores[i].value = v - m;
+    semaphores[i].max_value = v;
     for (int wait_proc_idx = 0; wait_proc_idx < NPROC; wait_proc_idx++)
         semaphores[i].waiting[wait_proc_idx] = 0;
     
@@ -49,7 +50,8 @@ void
 release_semaphore(int i)
 {
     acquire(&(semaphores[i].lk));
-    semaphores[i].value++;
+    if (semaphores[i].value + 1 <= semaphores[i].max_value)
+        semaphores[i].value++;
     if (semaphores[i].value <= 0)
     {
         if (semaphores[i].waiting[0] != 0)  // is there some process waiting to wakeup?
