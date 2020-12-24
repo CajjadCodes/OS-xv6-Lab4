@@ -23,6 +23,9 @@ int getpid(void);
 char* sbrk(int);
 int sleep(int);
 int uptime(void);
+int semaphore_initialize(int, int, int);
+int semaphore_aquire(int);
+int semaphore_release(int);
 
 // ulib.c
 int stat(const char*, struct stat*);

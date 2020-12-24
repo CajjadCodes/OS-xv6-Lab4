@@ -532,3 +532,15 @@ procdump(void)
     cprintf("\n");
   }
 }
+
+void
+acquire_ptablelock(void)
+{
+  acquire(&ptable.lock);
+}
+
+void
+release_ptablelock(void)
+{
+  release(&ptable.lock);
+}

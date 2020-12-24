@@ -7,6 +7,7 @@ struct proc;
 struct rtcdate;
 struct spinlock;
 struct sleeplock;
+struct semaphore;
 struct stat;
 struct superblock;
 
@@ -120,6 +121,8 @@ void            userinit(void);
 int             wait(void);
 void            wakeup(void*);
 void            yield(void);
+void            acquire_ptablelock(void);
+void            release_ptablelock(void);
 
 // swtch.S
 void            swtch(struct context**, struct context*);
@@ -138,6 +141,11 @@ void            acquiresleep(struct sleeplock*);
 void            releasesleep(struct sleeplock*);
 int             holdingsleep(struct sleeplock*);
 void            initsleeplock(struct sleeplock*, char*);
+
+// semaphore.c
+void            init_semaphore(int, int, int);
+void            aquire_semaphore(int);
+void            release_semaphore(int);
 
 // string.c
 int             memcmp(const void*, const void*, uint);
