@@ -6,6 +6,8 @@
 #include "memlayout.h"
 #include "mmu.h"
 #include "proc.h"
+#include "uspinlock.h"
+#include "condvar.h"
 
 int
 sys_fork(void)
@@ -127,4 +129,34 @@ sys_semaphore_release(void)
 
   release_semaphore(i);
   return 0;
+}
+
+int
+sys_cv_wait(void)
+{
+  struct condvar* cv;
+  // if (argptr(0, (void*)&cv, sizeof(*cv)) < 0)
+  //   return -1;
+  int addr;
+  if(argint(0, &addr) < 0)
+    return -1;
+  cv = (struct condvar*)addr;
+
+  wait_condvar(cv);
+
+  return 1;
+}
+
+int
+sys_cv_signal(void)
+{
+  struct condvar* cv;
+  int addr;
+  if(argint(0, &addr) < 0)
+    return -1;
+  cv = (struct condvar*)addr;
+
+  signal_condvar(cv);
+
+  return 1;
 }

@@ -8,6 +8,7 @@ struct rtcdate;
 struct spinlock;
 struct sleeplock;
 struct semaphore;
+struct condvar;
 struct stat;
 struct superblock;
 
@@ -123,6 +124,7 @@ void            wakeup(void*);
 void            yield(void);
 void            acquire_ptablelock(void);
 void            release_ptablelock(void);
+void            sleep1(struct condvar*);
 
 // swtch.S
 void            swtch(struct context**, struct context*);
@@ -146,6 +148,10 @@ void            initsleeplock(struct sleeplock*, char*);
 void            init_semaphore(int, int, int);
 void            aquire_semaphore(int);
 void            release_semaphore(int);
+
+// condvar.c
+void            wait_condvar(struct condvar*);
+void            signal_condvar(struct condvar*);
 
 // string.c
 int             memcmp(const void*, const void*, uint);

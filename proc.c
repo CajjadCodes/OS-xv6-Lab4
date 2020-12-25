@@ -6,6 +6,8 @@
 #include "x86.h"
 #include "proc.h"
 #include "spinlock.h"
+#include "uspinlock.h"
+#include "condvar.h"
 
 struct {
   struct spinlock lock;
@@ -412,6 +414,22 @@ forkret(void)
   // Return to "caller", actually trapret (see allocproc).
 }
 
+// also adding lock and unlock function definition here
+void 
+lock(struct uspinlock* lk)
+{
+  while(xchg(&lk->locked, 1) != 0)
+    ;
+  __sync_synchronize();
+}
+
+void 
+unlock(struct uspinlock* lk)
+{
+  __sync_synchronize();
+  asm volatile("movl $0, %0" : "+m" (lk->locked) : );
+}
+
 // Atomically release lock and sleep on chan.
 // Reacquires lock when awakened.
 void
@@ -543,4 +561,40 @@ void
 release_ptablelock(void)
 {
   release(&ptable.lock);
+}
+
+// Atomically release lock and sleep on chan.
+// Reacquires lock when awakened.
+void
+sleep1(struct condvar* cv)
+{
+  struct proc *p = myproc();
+  
+  if(p == 0)
+    panic("sleep1");
+
+  if(cv->lk.locked == 0)
+    panic("sleep1 without lk");
+
+  // Must acquire ptable.lock in order to
+  // change p->state and then call sched.
+  // Once we hold ptable.lock, we can be
+  // guaranteed that we won't miss any wakeup
+  // (wakeup runs with ptable.lock locked),
+  // so it's okay to release lk.
+  acquire(&ptable.lock);  //DOC: sleeplock1
+  unlock(&(cv->lk));
+
+  // Go to sleep.
+  p->chan = cv;
+  p->state = SLEEPING;
+
+  sched();
+
+  // Tidy up.
+  p->chan = 0;
+
+  // Reacquire original lock.
+  release(&ptable.lock);
+  lock(&(cv->lk));
 }

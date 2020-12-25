@@ -20,6 +20,8 @@
 #define SYS_link   19
 #define SYS_mkdir  20
 #define SYS_close  21
-#define SYS_semaphore_initialize 22
-#define SYS_semaphore_aquire 23
-#define SYS_semaphore_release 24
+#define SYS_semaphore_initialize    22
+#define SYS_semaphore_aquire        23
+#define SYS_semaphore_release       24
+#define SYS_cv_wait                 25
+#define SYS_cv_signal               26

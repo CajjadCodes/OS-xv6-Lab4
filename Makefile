@@ -18,6 +18,7 @@ OBJS = \
 	sleeplock.o\
 	spinlock.o\
 	semaphore.o\
+	condvar.o\
 	string.o\
 	swtch.o\
 	syscall.o\
