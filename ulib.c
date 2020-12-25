@@ -3,6 +3,7 @@
 #include "fcntl.h"
 #include "user.h"
 #include "x86.h"
+#include "uspinlock.h"
 
 char*
 strcpy(char *s, const char *t)
@@ -103,4 +104,25 @@ memmove(void *vdst, const void *vsrc, int n)
   while(n-- > 0)
     *dst++ = *src++;
   return vdst;
+}
+
+void 
+init_lock(struct uspinlock* lk)
+{
+  lk->locked = 0;
+}
+
+void 
+lock(struct uspinlock* lk)
+{
+  while(xchg(&lk->locked, 1) != 0)
+    ;
+  __sync_synchronize();
+}
+
+void 
+unlock(struct uspinlock* lk)
+{
+  __sync_synchronize();
+  asm volatile("movl $0, %0" : "+m" (lk->locked) : );
 }
