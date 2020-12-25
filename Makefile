@@ -185,6 +185,7 @@ UPROGS=\
 	_zombie\
 	_ProducerConsumerTest\
 	_uspinlockTest\
+	_CondVarTest\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
