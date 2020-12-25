@@ -91,7 +91,7 @@ sys_uptime(void)
 }
 
 int
-semaphore_initialize(void)
+sys_semaphore_initialize(void)
 {
   int i, v, m;
   if((argint(0, &i) < 0) || (argint(1, &v) < 0) || (argint(2, &m) < 0))
@@ -104,7 +104,7 @@ semaphore_initialize(void)
 }
 
 int
-semaphore_aquire(void)
+sys_semaphore_aquire(void)
 {
   int i;
   if(argint(0, &i) < 0)
@@ -117,7 +117,7 @@ semaphore_aquire(void)
 }
 
 int
-semaphore_release(void)
+sys_semaphore_release(void)
 {
   int i;
   if(argint(0, &i) < 0)

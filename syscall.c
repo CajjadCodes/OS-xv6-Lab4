@@ -103,9 +103,9 @@ extern int sys_unlink(void);
 extern int sys_wait(void);
 extern int sys_write(void);
 extern int sys_uptime(void);
-extern int semaphore_initialize(void);
-extern int semaphore_aquire(void);
-extern int semaphore_release(void);
+extern int sys_semaphore_initialize(void);
+extern int sys_semaphore_aquire(void);
+extern int sys_semaphore_release(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -129,9 +129,9 @@ static int (*syscalls[])(void) = {
 [SYS_link]    sys_link,
 [SYS_mkdir]   sys_mkdir,
 [SYS_close]   sys_close,
-[SYS_semaphore_initialize]   semaphore_initialize,
-[SYS_semaphore_aquire]   semaphore_aquire,
-[SYS_semaphore_release]   semaphore_release,
+[SYS_semaphore_initialize]   sys_semaphore_initialize,
+[SYS_semaphore_aquire]   sys_semaphore_aquire,
+[SYS_semaphore_release]   sys_semaphore_release,
 };
 
 void
