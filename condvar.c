@@ -11,20 +11,11 @@
 void
 wait_condvar(struct condvar* cv)
 {
-    /*all wakeup with cv_signal*/
     sleep1(cv);
-
-    /*only 1 wakeup with cv_signal*/
-    //to do
 }
 
 void
 signal_condvar(struct condvar* cv)
 {
-    /*all wakeup with cv_signal*/
     wakeup(cv);
-
-
-    /*only 1 wakeup with cv_signal*/
-    //to do
 }
