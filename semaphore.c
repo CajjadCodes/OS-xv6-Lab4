@@ -38,7 +38,7 @@ aquire_semaphore(int i)
                 break;
             }
         }
-        //sleep
+        // now sleep
         sleep(0, &(semaphores[i].lk)); // chan = 0 -> because we want to wake it up manually, not by a channel
     }
     release(&(semaphores[i].lk));
@@ -50,7 +50,7 @@ void
 release_semaphore(int i)
 {
     acquire(&(semaphores[i].lk));
-    if (semaphores[i].value + 1 <= semaphores[i].max_value)
+    if (semaphores[i].value < semaphores[i].max_value)
         semaphores[i].value++;
     if (semaphores[i].value <= 0)
     {

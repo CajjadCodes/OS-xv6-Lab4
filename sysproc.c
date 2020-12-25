@@ -131,12 +131,36 @@ sys_semaphore_release(void)
   return 0;
 }
 
+/* helper functions for Producer Consumer program */
+#define BUFFER_SIZE 5
+
+int _buffer[BUFFER_SIZE];
+
+int
+sys_set_buffer(void)
+{
+  int idx, data;
+  if((argint(0, &idx) < 0) || (argint(1, &data) < 0))
+    return -1;
+  _buffer[idx] = data;
+  return 0;
+}
+
+int
+sys_get_buffer(void)
+{
+  int idx;
+  if(argint(0, &idx) < 0)
+    return -1;
+  return _buffer[idx];
+}
+
+
+/*Condition Varaible syscalls*/
 int
 sys_cv_wait(void)
 {
   struct condvar* cv;
-  // if (argptr(0, (void*)&cv, sizeof(*cv)) < 0)
-  //   return -1;
   int addr;
   if(argint(0, &addr) < 0)
     return -1;

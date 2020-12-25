@@ -106,6 +106,7 @@ memmove(void *vdst, const void *vsrc, int n)
   return vdst;
 }
 
+/*functions for uspinlock*/
 void 
 init_lock(struct uspinlock* lk)
 {
