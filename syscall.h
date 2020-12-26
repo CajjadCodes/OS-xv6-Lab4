@@ -21,15 +21,20 @@
 #define SYS_mkdir  20
 #define SYS_close  21
 
-/*Semaphore system calls */
+/*Semaphore System Calls */
 #define SYS_semaphore_initialize    22
 #define SYS_semaphore_aquire        23
 #define SYS_semaphore_release       24
 
-/*Producers Consumers helper system calls */
+/*Producers Consumers Helper System Calls */
 #define SYS_set_buffer              25
 #define SYS_get_buffer              26
 
-/*Condition Variables system calls */
+/*Condition Variables System Calls */
 #define SYS_cv_wait                 27
 #define SYS_cv_signal               28
+
+/*Readers Writers System Calls */
+#define SYS_init_readers_writers    29
+#define SYS_start_reading           30
+#define SYS_start_writing           31

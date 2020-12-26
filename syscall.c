@@ -110,6 +110,9 @@ extern int sys_set_buffer(void);
 extern int sys_get_buffer(void);
 extern int sys_cv_wait(void);
 extern int sys_cv_signal(void);
+extern int sys_init_readers_writers(void);
+extern int sys_start_reading(void);
+extern int sys_start_writing(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -140,6 +143,9 @@ static int (*syscalls[])(void) = {
 [SYS_set_buffer]  sys_set_buffer,
 [SYS_cv_wait] sys_cv_wait,
 [SYS_cv_signal] sys_cv_signal,
+[SYS_init_readers_writers] sys_init_readers_writers,
+[SYS_start_reading] sys_start_reading,
+[SYS_start_writing] sys_start_writing,
 };
 
 void

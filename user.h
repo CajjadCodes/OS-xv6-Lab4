@@ -32,6 +32,9 @@ int cv_wait(struct condvar*);
 int cv_signal(struct condvar*);
 int set_buffer(int, int);
 int get_buffer(int);
+int init_readers_writers(void);
+int start_reading(void);
+int start_writing(void);
 
 // ulib.c
 int stat(const char*, struct stat*);
