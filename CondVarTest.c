@@ -15,7 +15,7 @@ int main()
     }
     else if (pid == 0)
     {
-        sleep(1);
+        sleep(50);
         printf(1, "Child 1 Executing\n");
         cv_signal(cvptr);
     }
