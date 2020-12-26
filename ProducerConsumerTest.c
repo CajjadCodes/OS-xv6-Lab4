@@ -61,10 +61,10 @@ void consumer(void) {
  
 
         data = get_buffer(out); // data = buffer[counter];
-        out = (out + 1) % BUFFER_SIZE;
         semaphore_aquire(STDOUT_SEMAPHORE);
         printf(1, "Consumer READ data '%c' from buffer[%d]\n", data, out);
         semaphore_release(STDOUT_SEMAPHORE);
+        out = (out + 1) % BUFFER_SIZE;
 
 
         semaphore_release(MUTEX_SEMAPHORE);
@@ -80,7 +80,7 @@ void consumer(void) {
 
 int main(int argc, char* argv[]) {
 
-    semaphore_initialize(AVAILABLE_DATA_SEMAPHORE, 1, 1);
+    semaphore_initialize(AVAILABLE_DATA_SEMAPHORE, 5, 5);
     semaphore_initialize(EMPTY_SPACE_SEMAPHORE, BUFFER_SIZE, 0);
     semaphore_initialize(MUTEX_SEMAPHORE, 1, 0);
     semaphore_initialize(STDOUT_SEMAPHORE, 1, 0);
