@@ -30,6 +30,7 @@ int semaphore_aquire(int);
 int semaphore_release(int);
 int cv_wait(struct condvar*);
 int cv_signal(struct condvar*);
+int get_condvartest_cv(void);
 int set_buffer(int, int);
 int get_buffer(int);
 int init_readers_writers(void);

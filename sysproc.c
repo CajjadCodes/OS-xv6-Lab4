@@ -189,6 +189,17 @@ sys_cv_signal(void)
   return 1;
 }
 
+/* Helper system call and varibale for CondVarTest*/
+
+struct condvar condvar_test_cv;
+
+int
+sys_get_condvartest_cv(void)
+{
+  condvar_test_cv.lk.locked = 0;
+  return (int)&condvar_test_cv;
+}
+
 
 /* Readers Writers System Calls */
 

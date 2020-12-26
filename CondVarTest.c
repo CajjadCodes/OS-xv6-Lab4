@@ -4,12 +4,9 @@
 #include "condvar.h"
 
 
-struct condvar cv;
-struct condvar* cvptr = &cv;
-
 int main()
 {
-    init_lock(&(cvptr->lk));
+    struct condvar* cvptr = (struct condvar*)get_condvartest_cv();
 
     int pid = fork();
     if (pid < 0)
@@ -20,9 +17,7 @@ int main()
     {
         sleep(1);
         printf(1, "Child 1 Executing\n");
-        lock(&(cvptr->lk));
         cv_signal(cvptr);
-        unlock(&(cvptr->lk));
     }
     else
     {
@@ -33,9 +28,7 @@ int main()
         }
         else if(pid == 0)
         {
-            lock(&(cvptr->lk));
             cv_wait(cvptr);
-            unlock(&(cvptr->lk));
             printf(1, "Child 2 Executing\n");
         }
         else

@@ -34,7 +34,10 @@
 #define SYS_cv_wait                 27
 #define SYS_cv_signal               28
 
+/*Helper System Call for CondVarTest*/
+#define SYS_get_condvartest_cv      29
+
 /*Readers Writers System Calls */
-#define SYS_init_readers_writers    29
-#define SYS_start_reading           30
-#define SYS_start_writing           31
+#define SYS_init_readers_writers    30
+#define SYS_start_reading           31
+#define SYS_start_writing           32
